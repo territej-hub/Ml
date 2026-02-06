@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Baby Tee 💖</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #ffb6c1, #ffe6f2);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Pages */
+.page {
+  display: none;
+  height: 100vh;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.page.active {
+  display: flex;
+}
+
+/* Teddy */
+.teddy {
+  font-size: 120px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Buttons */
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background: #777;
+  color: white;
+  position: absolute;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Canvas */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Text */
+h1, h2, p {
+  color: #ff005d;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <div class="teddy">🧸❤️</div>
+  <h1>Baby Tee 💕</h1>
+  <h2>hey baby tee will you be my Valentine?</h2>
+
+  <button id="yesBtn">YES 💖</button>
+  <button id="noBtn">NO 💔</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h2>
+    From the moment we met it was no coincidence,<br><br>
+    I have loved u ever since and I will always love u baby ❤️😘
+  </h2>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1 style="font-size:60px;">I LOVE U SO VERY MUCH 😘❤️</h1>
+</div>
+
+<canvas id="fx"></canvas>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/02/14/audio_6f94c98db7.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const canvas = document.getElementById("fx");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+
+/* NO button runs away */
+noBtn.addEventListener("mouseover", () => {
+  noBtn.style.left = Math.random() * (innerWidth - 100) + "px";
+  noBtn.style.top = Math.random() * (innerHeight - 100) + "px";
+});
+
+/* YES button */
+yesBtn.addEventListener("click", () => {
+  document.getElementById("music").play();
+  explode();
+  heartsRain();
+  switchPage("page1", "page2");
+
+  setTimeout(() => {
+    switchPage("page2", "page3");
+  }, 7000);
+});
+
+/* Pages */
+function switchPage(from, to) {
+  document.getElementById(from).classList.remove("active");
+  document.getElementById(to).classList.add("active");
+}
+
+/* Fireworks */
+function explode() {
+  for (let i = 0; i < 200; i++) {
+    particles.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: (Math.random() - 0.5) * 8,
+      vy: (Math.random() - 0.5) * 8,
+      life: 100,
+      emoji: ["❤️","💖","💕","💘"][Math.floor(Math.random()*4)]
+    });
+  }
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    ctx.font = "24px serif";
+    ctx.fillText(p.emoji, p.x, p.y);
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+    if(p.life <= 0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* Floating hearts */
+function heartsRain() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * innerWidth + "px";
+    heart.style.fontSize = Math.random() * 30 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
