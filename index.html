@@ -54,7 +54,34 @@ p {
   height: 100vh;
   transition: transform 1s ease-in-out;
 }
+  /* The screen window */
+.viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
 
+/* The sliding strip */
+.slider {
+  display: flex;
+  width: 300vw;
+  height: 100%;
+  transition: transform 1s ease-in-out;
+  transform: translateX(0); /* start on page 1 */
+}
+
+/* Each full page */
+.page {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+  
 /* Pages */
 .page {
   .slider {
@@ -272,6 +299,7 @@ function heartsRain() {
 
 </body>
 </html>
+
 
 
 
