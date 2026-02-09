@@ -47,13 +47,22 @@ p {
 
 /* Pages */
 .page {
-  min-height: 100vh;
-  padding: 20px 15px;
+  .slider {
+  display: flex;
+  width: 300vw;
+  height: 100vh;
+  transition: transform 1s ease-in-out;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  overflow-y: auto;
+  justify-content: center;
 }
 
 .page.active {
@@ -125,7 +134,7 @@ h1, h2, p {
 
 <!-- PAGE 1 -->
 <div class="slider" >
-<div class="page active" id="page1">
+  <div class="page active" id="page1">
   <img src="./teddy.png" class="teddy" alt="Teddy holding love">
   <h1>Baby Tee 💕</h1>
   <img src="babytee.jpg" style="
@@ -147,7 +156,7 @@ h1, h2, p {
 
 <!-- PAGE 2 -->
 <div class="slider" >
-<div class="page" id="page2">
+  <div class="page" id="page2">
   <img src="us.jpg" style="
   <img src="ml.jpg" style="
   <img src="chibaby.jpg" style="
@@ -253,6 +262,7 @@ function heartsRain() {
 
 </body>
 </html>
+
 
 
 
