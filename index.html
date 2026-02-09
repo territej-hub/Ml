@@ -201,14 +201,20 @@ noBtn.addEventListener("mouseover", () => {
 });
 
 /* YES button */
+let currentPage = 0;
+const slider = document.querySelector(".slider");
+
 yesBtn.addEventListener("click", () => {
   document.getElementById("music").play();
   explode();
   heartsRain();
-  switchPage("page1", "page2");
+
+  currentPage = 1;
+  slider.style.transform = "translateX(-100vw)";
 
   setTimeout(() => {
-    switchPage("page2", "page3");
+    currentPage = 2;
+    slider.style.transform = "translateX(-200vw)";
   }, 7000);
 });
 
@@ -262,6 +268,7 @@ function heartsRain() {
 
 </body>
 </html>
+
 
 
 
